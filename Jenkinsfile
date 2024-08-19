@@ -35,9 +35,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                docker stop node-todo-app || true
-                docker rm node-todo-app || true
-                docker build . -t todo-node-app
+                sh "docker stop node-todo-app || true"
+                sh "docker rm node-todo-app || true"
+                sh "docker build . -t todo-node-app"
             }
         }
         stage('Test') {
@@ -48,7 +48,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                docker run -d --name node-todo-app -p 8000:8000 todo-node-app
+                sh "docker run -d --name node-todo-app -p 8000:8000 todo-node-app"
             }
         }
     }
